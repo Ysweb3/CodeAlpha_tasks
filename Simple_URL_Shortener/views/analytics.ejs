@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KINETIC_LINK // Analytics</title>
+<link rel="icon" href="/images/icon.png">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-container": "#4f378b",
+              "inverse-on-surface": "#1c1b1f",
+              "surface": "#121214",
+              "inverse-primary": "#6750a4",
+              "secondary-container": "#004e5c",
+              "tertiary-container": "#005234",
+              "on-surface-variant": "#cac4d0",
+              "on-tertiary": "#003923",
+              "tertiary": "#4edea3",
+              "on-tertiary-container": "#6dfbbd",
+              "surface-container": "#1c1b1f",
+              "on-secondary-fixed-variant": "#004e5c",
+              "on-tertiary-fixed": "#002112",
+              "primary-fixed": "#eaddff",
+              "inverse-surface": "#e6e1e5",
+              "surface-container-high": "#2b2930",
+              "outline-variant": "#49454f",
+              "surface-container-lowest": "#0e0e10",
+              "secondary-fixed": "#afeeff",
+              "secondary-fixed-dim": "#4cd7f6",
+              "on-primary": "#381e72",
+              "on-background": "#e6e1e5",
+              "on-primary-fixed-variant": "#4f378b",
+              "on-primary-container": "#eaddff",
+              "surface-tint": "#d0bcff",
+              "outline": "#938f99",
+              "on-primary-fixed": "#21005d",
+              "error-container": "#8c1d18",
+              "surface-variant": "#49454f",
+              "on-secondary-fixed": "#001f25",
+              "secondary": "#4cd7f6",
+              "primary-fixed-dim": "#d0bcff",
+              "surface-container-low": "#121214",
+              "on-tertiary-fixed-variant": "#005234",
+              "error": "#f2b8b5",
+              "on-error-container": "#f9dedc",
+              "primary": "#d0bcff",
+              "surface-container-highest": "#35343a",
+              "on-error": "#601410",
+              "tertiary-fixed": "#6dfbbd",
+              "on-secondary-container": "#afeeff",
+              "on-surface": "#e6e1e5",
+              "tertiary-fixed-dim": "#4edea3",
+              "surface-dim": "#0e0e10",
+              "on-secondary": "#003640",
+              "background": "#121214",
+              "surface-bright": "#2b2930"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #121214; }
+        .kinetic-grid {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        .pro-border { border: 1px solid rgba(255, 255, 255, 0.08); }
+        .kinetic-ribbon {
+            transform: rotate(-12deg);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary/30 min-h-screen flex flex-col"><canvas class="fixed inset-0 w-full h-full -z-10 pointer-events-none" id="grid-canvas"></canvas>
+<!-- Grid Overlay -->
+<div class="fixed inset-0 kinetic-grid pointer-events-none z-0"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#121214]/80 backdrop-blur-md border-b border-white/5">
+<nav class="flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" ><img src="/images/icon.png" alt="icon" height="30px" width="30px"></span>
+<span class="text-lg font-bold tracking-tight text-on-surface">LinkKinetic</span>
+</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-sm font-medium" href="/">Home</a>
+<a class=" text-primary text-on-surface-variant text-sm font-medium hover:text-on-surface transition-colors" href="#">Analytics</a>
+</div>
+<div class="flex items-center">
+<span class="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded border border-primary/20 uppercase tracking-widest">Beta</span>
+</div>
+</nav>
+</header>
+<main class="flex-grow pt-0pb-20 px-6">
+<main class="relative z-10 flex-grow pt-24 pb-12 px-6 lg:px-12 max-w-7xl mx-auto w-full">
+<!-- Header & Lookup -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
+<div class="space-y-2">
+<p class="text-[10px] font-bold uppercase tracking-[0.2em] text-secondary">Active CODE</p>
+<h1 id="active-short-code" class="text-4xl md:text-5xl font-black tracking-tight text-on-surface">
+                    
+                </h1>
+</div>
+<div class="w-full md:w-96">
+<form id="lookup-form">
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline text-sm">search</span>
+</div>
+<input id="input" class="w-full bg-surface-container-high text-on-surface placeholder:opacity-50 border-none rounded-xl py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary transition-all font-mono text-sm tracking-wider" placeholder="LOOKUP_HASH_ID..." type="text"/>
+</div>
+</form>
+</div>
+</div>
+<!-- Metric Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<!-- Metric Card: Clicks -->
+<div class="bg-surface-container/40 pro-border p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute -right-2 -top-2 kinetic-ribbon bg-secondary-container px-3 py-1 z-20">
+<span class="text-[9px] font-black text-on-secondary-container uppercase tracking-widest">Velocity</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] font-bold uppercase tracking-widest text-outline">TOTAL_CLICKS</span>
+<span class="text-5xl font-black text-primary tracking-tighter" id="total-clicks"></span>
+</div>
+<div class="mt-4 flex items-center gap-2 text-[11px] font-bold text-tertiary">
+</div>
+</div>
+<!-- Metric Card: Created -->
+<div class="bg-surface-container/40 pro-border p-6 rounded-xl">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] font-bold uppercase tracking-widest text-outline">DATE_CREATED</span>
+<span class="text-3xl font-bold text-on-surface tracking-tight uppercase"id='date-display'></span>
+</div>
+<div class="mt-4 pt-4 border-t border-white/5 flex flex-col">
+<span class="text-[10px] font-bold uppercase tracking-widest text-outline">TIMESTAMP</span>
+<span class="text-lg font-mono text-secondary" id='time-display'></span>
+</div>
+</div>
+<!-- Metric Card: URL -->
+<div class="bg-surface-container/40 pro-border p-4 rounded-xl flex flex-col justify-start">
+<div class="flex flex-col gap-2">
+<span class="text-[10px] font-bold uppercase tracking-widest text-outline">URL</span>
+<span class="text-3xl font-bold text-tertiary tracking-tight break-all" id="long-url-display"></span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 right-0 w-full py-6 border-t border-white/5 bg-[#0e0e10]">
+<div class="flex flex-col md:flex-row justify-between items-center px-8 space-y-6 md:space-y-0 max-w-full">
+<div class="flex flex-col md:flex-row items-center gap-4">
+<span class="text-on-surface font-semibold text-sm">LinkKinetic</span>
+</div>
+<div class="flex gap-6 items-center">
+<a class="text-outline hover:text-on-surface transition-colors text-xs font-medium" href="#">Documentation</a>
+<a href="https://github.com/Ysweb3/ULR-Shortener" class="text-outline hover:text-on-surface transition-colors text-xs font-medium flex items-center gap-2">
+  <span class="material-symbols-outlined" data-icon="code">code</span>
+  <span>GitHub</span>
+</a>
+</div>
+</div>
+</footer>
+<script>
+
+</script>
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[60] opacity-0 translate-y-4 pointer-events-none transition-all duration-500 ease-in-out" id="toast-notification">
+<div class="bg-surface-container-high pro-border rounded-xl p-4 shadow-2xl flex flex-col gap-3 min-w-[300px]">
+<div class="flex items-center gap-3">
+</div>
+<div class="w-full bg-white/5 h-1 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-full transition-all duration-[3000ms] linear" id="toast-progress"></div>
+</div>
+</div>
+</div>
+<script src="analytics.js" defer></script>
+<script src="design.js" defer></script>
+</body>
+</html>

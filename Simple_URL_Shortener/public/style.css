@@ -1,0 +1,18 @@
+   body {
+            background-color: #121214;
+            color: #e6e1e5;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .kinetic-bg {
+            background: radial-gradient(circle at 50% 0%, #1c1b25 0%, #121214 60%);
+        }
+        .ribbon-angle {
+            transform: rotate(-12deg) translateY(-8px) translateX(-4px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pro-border {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }

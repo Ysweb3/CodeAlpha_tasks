@@ -1,0 +1,35 @@
+{
+  "name": "ulr-shortener",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devStart": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ysweb3/ULR-Shortener.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Ysweb3/ULR-Shortener/issues"
+  },
+  "homepage": "https://github.com/Ysweb3/ULR-Shortener#readme",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "nanoid": "^5.1.7"
+  },
+  "devDependencies": {
+    "dotenv": "^17.4.2",
+    "nodemon": "^3.1.14",
+    "prisma": "^5.22.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
