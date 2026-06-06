@@ -90,7 +90,7 @@ event-registration-system/
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/your-username/event-registration-system.git
+git clone git@github.com:Ysweb3/CodeAlpha_tasks.git
 cd event-registration-system
 ```
 
