@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  email        String        @unique
+  password     String
+  role         String        @default("staff") // admin, staff, manager
+  createdAt    DateTime      @default(now())
+  orders       Order[]
+  reservations Reservation[]
+}
+
+model MenuItem {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  price       Float
+  category    String      // e.g. starter, main, dessert, drink
+  available   Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  tableId     String?     @db.ObjectId
+  table       Table?      @relation(fields: [tableId], references: [id])
+  staffId     String      @db.ObjectId
+  staff       User        @relation(fields: [staffId], references: [id])
+  items       OrderItem[]
+  status      String      @default("pending") // pending, preparing, served, cancelled
+  totalAmount Float       @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model OrderItem {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  order      Order    @relation(fields: [orderId], references: [id])
+  orderId    String   @db.ObjectId
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+  menuItemId String   @db.ObjectId
+  quantity   Int
+  price      Float    // snapshot price at time of order
+}
+
+model Table {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  number       Int           @unique
+  capacity     Int
+  status       String        @default("available") // available, occupied, reserved
+  orders       Order[]
+  reservations Reservation[]
+}
+
+model Reservation {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String   @db.ObjectId
+  table       Table    @relation(fields: [tableId], references: [id])
+  tableId     String   @db.ObjectId
+  guestCount  Int
+  date        DateTime
+  status      String   @default("confirmed") // confirmed, cancelled, completed
+  createdAt   DateTime @default(now())
+}
+
+model Inventory {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  quantity    Float
+  unit        String   // kg, litres, pieces
+  alertLevel  Float    // trigger alert when quantity drops below this
+  updatedAt   DateTime @updatedAt
+}
